@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.yizhilu</groupId>
@@ -419,27 +418,17 @@
 			    <artifactId>struts2-spring-plugin</artifactId>
 			    <version>${struts2.version}</version>
 			</dependency>
+			<!--  velocity -->
 			<dependency>
-			    <groupId>org.apache.struts</groupId>
-			    <artifactId>struts2-tiles-plugin</artifactId>
-			    <version>${struts2.version}</version>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<version>1.7</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.apache.tiles</groupId>
-			    <artifactId>tiles-core</artifactId>
-			    <version>${tiles.version}</version>
+			    <groupId>org.apache.velocity</groupId>
+			    <artifactId>velocity-tools</artifactId>
+			    <version>2.0</version>
 			</dependency>
-			<dependency>
-			    <groupId>org.apache.tiles</groupId>
-			    <artifactId>tiles-api</artifactId>
-			    <version>${tiles.version}</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.apache.tiles</groupId>
-			    <artifactId>tiles-jsp</artifactId>
-			    <version>${tiles.version}</version>
-			</dependency>
-
 			<!-- lombok -->
 			<dependency>
 				<groupId>org.projectlombok</groupId>
@@ -459,45 +448,6 @@
 				<artifactId>spring-test</artifactId>
 				<version>${spring.version}</version>
 			</dependency>
-			<!--  velocity -->
-			<dependency>
-				<groupId>org.apache.velocity</groupId>
-				<artifactId>velocity</artifactId>
-				<version>1.7</version>
-			</dependency>
-			<dependency>
-			    <groupId>org.apache.velocity</groupId>
-			    <artifactId>velocity-tools</artifactId>
-			    <version>2.0</version>
-			</dependency>
-			
-			<!-- yizhilu -->
-			<!-- 
-			<dependency>
-				<groupId>com.yizhilu</groupId>
-				<artifactId>kq-cb-md5</artifactId>
-				<version>${yizhilu.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.yizhilu</groupId>
-				<artifactId>qq-Sdk4J</artifactId>
-				<version>${yizhilu.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.yizhilu</groupId>
-				<artifactId>weibo4joauth2</artifactId>
-				<version>${yizhilu.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.yizhilu</groupId>
-				<artifactId>yzl-commons-base</artifactId>
-				<version>${yizhilu.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.yizhilu</groupId>
-				<artifactId>zhifubao</artifactId>
-				<version>${yizhilu.version}</version>
-			</dependency> -->
 			
 	</dependencies>
 
