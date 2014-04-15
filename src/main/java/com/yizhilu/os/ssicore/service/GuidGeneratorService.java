@@ -1,7 +1,7 @@
 package com.yizhilu.os.ssicore.service;
 /**
  * 
- * ClassName  com.yizhilu.os.ssicore.service
+ * ClassName  com.yizhilu.common.service
  * Description 
  * User: liuqg
  * Date: 2013-7-4 下午3:43:32

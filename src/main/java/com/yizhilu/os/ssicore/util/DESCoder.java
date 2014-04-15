@@ -1,9 +1,4 @@
 package com.yizhilu.os.ssicore.util;
-/**  
- * 概要:DES加密算法，兼容PHP的解密  
- * @author cailin  
- * @since v2.0  
- */  
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -11,77 +6,78 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-import javax.crypto.Cipher;  
-import javax.crypto.SecretKey;  
-import javax.crypto.SecretKeyFactory;  
-import javax.crypto.spec.DESKeySpec;  
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 
-import sun.misc.BASE64Decoder;  
-import sun.misc.BASE64Encoder;  
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
-public class DESCoder    
-{  
-	private final static String KEY = "sedu2010"; // 字节数必须是8的倍数  
-	public  static String SECONDKEY = "yizhiluedu";//自定义加密第二变量
-	public static byte[] desEncrypt(byte[] plainText) throws Exception  
-	{  
-		SecureRandom sr = new SecureRandom();  
-		DESKeySpec dks = new DESKeySpec(KEY.getBytes());  
-		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");  
-		SecretKey key = keyFactory.generateSecret(dks);  
-		Cipher cipher = Cipher.getInstance("DES");  
-		cipher.init(Cipher.ENCRYPT_MODE, key, sr);  
-		byte data[] = plainText;  
-		byte encryptedData[] = cipher.doFinal(data);  
-		return encryptedData;  
-	}  
+/**
+ * 
+ * @ClassName com.supergenius.sns.util.DESCoder
+ * @description DESCoder加密
+ * @author : qinggang.liu 305050016@qq.com
+ * @Create Date : 2013-12-13 下午2:22:38
+ */
 
-	public static byte[] desDecrypt(byte[] encryptText) throws Exception    
-	{  
-		SecureRandom sr = new SecureRandom();  
-		DESKeySpec dks =  new DESKeySpec(KEY.getBytes());  
-		SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");  
-		SecretKey key = keyFactory.generateSecret(dks);  
-		Cipher cipher = Cipher.getInstance("DES");  
-		cipher.init(Cipher.DECRYPT_MODE, key, sr);  
-		byte encryptedData[] = encryptText;  
-		byte decryptedData[] = cipher.doFinal(encryptedData);  
-		return decryptedData;  
-	}  
+public class DESCoder {
+    private final static String KEY = "qinggang"; // 字节数必须是8的倍数
+    public static String SECONDKEY = "qinggang";// 自定义加密第二变量
 
-	public static String encrypt(String input) throws Exception  
-	{  
-		return base64Encode(desEncrypt(input.getBytes()));
- //       return base64Encode(input.getBytes());
-	}
+    public static byte[] desEncrypt(byte[] plainText) throws Exception {
+        SecureRandom sr = new SecureRandom();
+        DESKeySpec dks = new DESKeySpec(KEY.getBytes());
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey key = keyFactory.generateSecret(dks);
+        Cipher cipher = Cipher.getInstance("DES");
+        cipher.init(Cipher.ENCRYPT_MODE, key, sr);
+        byte data[] = plainText;
+        byte encryptedData[] = cipher.doFinal(data);
+        return encryptedData;
+    }
 
-	public static String decrypt(String input) throws Exception    
-	{  
-		byte[] result = base64Decode(input);
-		return new String(desDecrypt(result));
-  //      return new String(base64Decode(input));
-	}  
+    public static byte[] desDecrypt(byte[] encryptText) throws Exception {
+        SecureRandom sr = new SecureRandom();
+        DESKeySpec dks = new DESKeySpec(KEY.getBytes());
+        SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+        SecretKey key = keyFactory.generateSecret(dks);
+        Cipher cipher = Cipher.getInstance("DES");
+        cipher.init(Cipher.DECRYPT_MODE, key, sr);
+        byte encryptedData[] = encryptText;
+        byte decryptedData[] = cipher.doFinal(encryptedData);
+        return decryptedData;
+    }
 
-	public static String base64Encode(byte[] s)    
-	{  
-		if (s == null)  
-			return null;  
-		BASE64Encoder b = new sun.misc.BASE64Encoder();  
-		return b.encode(s);  
-	}  
+    public static String encrypt(String input) throws Exception {
+        return base64Encode(desEncrypt(input.getBytes()));
+        // return base64Encode(input.getBytes());
+    }
 
-	public static byte[] base64Decode(String s) throws IOException    
-	{  
-		if (s == null)  
-		{  
-			return null;  
-		}  
-		BASE64Decoder decoder = new BASE64Decoder();  
-		byte[] b = decoder.decodeBuffer(s);  
-		return b;  
-	}
+    public static String decrypt(String input) throws Exception {
+        byte[] result = base64Decode(input);
+        return new String(desDecrypt(result));
+        // return new String(base64Decode(input));
+    }
 
-    public static String md5(String s) throws Exception{
+    public static String base64Encode(byte[] s) {
+        if (s == null)
+            return null;
+        BASE64Encoder b = new sun.misc.BASE64Encoder();
+        return b.encode(s);
+    }
+
+    public static byte[] base64Decode(String s) throws IOException {
+        if (s == null) {
+            return null;
+        }
+        BASE64Decoder decoder = new BASE64Decoder();
+        byte[] b = decoder.decodeBuffer(s);
+        return b;
+    }
+
+    public static String md5(String s) throws Exception {
         MessageDigest messageDigest = null;
         try {
             messageDigest = MessageDigest.getInstance("MD5");
@@ -104,14 +100,12 @@ public class DESCoder
         return md5StrBuff.toString();
     }
 
-	public static  void main(String args[]) {  
-		try {  
-			System.out.println(DESCoder.encrypt("1"));
-			System.out.println(DESCoder.decrypt("VydLPyF+SVOanywtK76zEA=="));
-            System.out.println(DESCoder.md5("268xue"));
-            System.out.println(md5("V2ABtdP14ho=,"+"VydLPyF+SVOanywtK76zEA=="));
-		} catch (Exception e) {  
-			e.printStackTrace(); 
-		}  
-	}  
-}  
+    public static void main(String args[]) {
+        try {
+            System.out.println(DESCoder.encrypt("1"));// 加密
+            System.out.println(DESCoder.decrypt("XHDcnN3xxow="));// 解密
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}

@@ -1,6 +1,5 @@
 package com.yizhilu.os.ssicore.util;
 
-import com.yizhilu.os.ssicore.schedule.Constant;
 
 public class PreventInfusion {   
 	
@@ -114,13 +113,6 @@ public class PreventInfusion {
 		return true;
 	}
 	
-	public static void main(String[] args) {   
-		System.out.println(sqlInfusion(""));   
-		System.out.println(sqlInfusion("null"));   
-		System.out.println(sqlInfusion(null));   
-		System.out.println(xssEncode("&"));   
-	} 
-	
 	/***
 	 * 防止sql注入
 	 * @param str
@@ -130,14 +122,12 @@ public class PreventInfusion {
 		if(str == null || "".equals(str)) {
 			return false;
 		}
-		if(!Constant.r.equals("1"))return true;
 	    String[] inj_stra = inj_str.split("\\|");
 	    for (int i=0 ; i < inj_stra.length ; i++ ){
 	    	if (str.indexOf(inj_stra[i]) != -1){
 	    		return true;
 	    	}
 	    }
-	    if(!Constant.l.equals("1"))return true;
 	    return false;
     }
 } 

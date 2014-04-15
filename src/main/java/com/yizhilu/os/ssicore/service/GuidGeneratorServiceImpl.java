@@ -14,12 +14,11 @@ import java.util.Random;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import com.yizhilu.os.ssicore.schedule.Constant;
-import com.yizhilu.os.ssicore.vo.GuidItem;
+import com.yizhilu.os.ssicore.domain.GuidItem;
 
 /**
  * 
- * ClassName  com.yizhilu.os.ssicore.service
+ * ClassName  com.yizhilu.common.service
  * Description 
  * User: liuqg
  * Date: 2013-7-4 下午3:43:27
@@ -69,7 +68,7 @@ public class GuidGeneratorServiceImpl extends BaseService implements GuidGenerat
         initFlag = true;
         maxAutoId = this.getMaxNumber(8);
         logger.info("IP:" + localAddress + ",MaxAutoId:" + maxAutoId
-                + ",RandomString:" + getRandomString(2)+"++rlw"+Constant.r+Constant.l+Constant.w);
+                + ",RandomString:" + getRandomString(2));
     }
 
     private String getNowTime() {
@@ -189,15 +188,12 @@ public class GuidGeneratorServiceImpl extends BaseService implements GuidGenerat
 
     public String getJvmId() {
         if (jvmId != null && jvmId.trim().length() > 0) {
-            // System.out.println("================JVM Id pro:" +
-            // jvmId+"=============");
             return jvmId;
         } else {
             jvmId = System.getenv().get("JVMID");
             if (jvmId == null || jvmId.trim().length() == 0)
                 jvmId = getNewRandomString(1, "A,B,C,D,E");
             logger.info("JVM Id:" + jvmId);
-            // System.out.println("================JVM Id after:" +
             // jvmId+"=============");
             return jvmId;
         }

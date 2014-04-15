@@ -1,16 +1,16 @@
 package com.yizhilu.os.ssicore.dao;
 
-import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
-import org.springframework.orm.ibatis.SqlMapClientCallback;
-
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.List;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
-import com.yizhilu.os.ssicore.vo.PageQuery;
-import com.yizhilu.os.ssicore.vo.PageResult;
+import org.springframework.orm.ibatis.SqlMapClientCallback;
+import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
+
 import com.ibatis.sqlmap.client.SqlMapExecutor;
+import com.yizhilu.os.ssicore.domain.PageQuery;
+import com.yizhilu.os.ssicore.domain.PageResult;
 
 /**
  * ibatis简单crud操作共用dao类 User: guoqiang.liu Date: 2008-11-28 Time: 23:52:47
@@ -24,7 +24,9 @@ public class IbatisSimpleDaoImpl extends SqlMapClientDaoSupport implements ISimp
     public <K, E> Map<K, E> getForMap(String xmlId, Object parObj, String mapKey) {
         return getSqlMapClientTemplate().queryForMap(xmlId, parObj, mapKey);
     }
-
+    public <T> List<T> getForList(String xmlId) {
+        return getSqlMapClientTemplate().queryForList(xmlId);
+    }
     public <T> List<T> getForList(String xmlId, Object parObj) {
         return getSqlMapClientTemplate().queryForList(xmlId, parObj);
     }
@@ -46,18 +48,15 @@ public class IbatisSimpleDaoImpl extends SqlMapClientDaoSupport implements ISimp
         List cusList = new ArrayList();
         try {
             getSqlMapClientTemplate().getSqlMapClient().startTransaction();
-            getSqlMapClientTemplate().getSqlMapClient().getCurrentConnection()
-                    .setAutoCommit(false);
+            getSqlMapClientTemplate().getSqlMapClient().getCurrentConnection().setAutoCommit(false);
 
             for (int i = 0; objList != null && i < objList.size(); i++) {
-                cusList.add(getSqlMapClientTemplate().getSqlMapClient().insert(xmlId,
-                        objList.get(i)));
+                cusList.add(getSqlMapClientTemplate().getSqlMapClient().insert(xmlId, objList.get(i)));
             }
 
             getSqlMapClientTemplate().getSqlMapClient().commitTransaction();
 
-            getSqlMapClientTemplate().getSqlMapClient().getCurrentConnection()
-                    .setAutoCommit(true);
+            getSqlMapClientTemplate().getSqlMapClient().getCurrentConnection().setAutoCommit(true);
 
         } catch (Exception e) {
             getSqlMapClientTemplate().getSqlMapClient().getCurrentConnection().rollback();
@@ -93,15 +92,17 @@ public class IbatisSimpleDaoImpl extends SqlMapClientDaoSupport implements ISimp
         PageResult pageResult = new PageResult();
         pageResult.setCurrentPage(pageQuery.getCurrentPage());// page中加入当前页
         pageResult.setPageResult(resultList);// 加入结果集
-        pageResult.setTotalRecord(totalRecord);// 加入总记录数
+        if (resultList == null || resultList.size() == 0) {
+            pageResult.setTotalRecord(0);
+        } else {
+            pageResult.setTotalRecord(totalRecord);// 加入总记录数
+        }
         return pageResult;
     }
 
-    public void batchExecuteSingleSql(final String xmlId, final List parList,
-            final String methodType, final int countToBeExecute) {
+    public void batchExecuteSingleSql(final String xmlId, final List parList, final String methodType, final int countToBeExecute) {
         getSqlMapClientTemplate().execute(new SqlMapClientCallback() {
-            private int executeBatch(int count, SqlMapExecutor executor)
-                    throws SQLException {
+            private int executeBatch(int count, SqlMapExecutor executor) throws SQLException {
                 if (count >= countToBeExecute) {
                     executor.executeBatch();
                     count = 0;
@@ -109,8 +110,7 @@ public class IbatisSimpleDaoImpl extends SqlMapClientDaoSupport implements ISimp
                 return count;
             }
 
-            public Object doInSqlMapClient(SqlMapExecutor sqlMapExecutor)
-                    throws SQLException {
+            public Object doInSqlMapClient(SqlMapExecutor sqlMapExecutor) throws SQLException {
                 sqlMapExecutor.startBatch();
                 int count = 0;
                 if (BATCH_EXECUTE_METHOD_TYPE_INSERT.equals(methodType)) {

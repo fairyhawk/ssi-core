@@ -1,9 +1,9 @@
 package com.yizhilu.os.ssicore.exception;
 
 @SuppressWarnings("serial")
-public class CommException extends RuntimeException {
-    public static String ERROR_CODE_KEY = "errCode";// 错误信息存储key值
-    public static String ERROR_RAND_CODE = "err.randCode";// 验证码错误
+public class CommException extends RuntimeException{
+    public static String ERROR_CODE_KEY = "errCode";//错误信息存储key值
+    public static String ERROR_RAND_CODE = "err.randCode";//验证码错误
 
     public CommException() {
         super();
