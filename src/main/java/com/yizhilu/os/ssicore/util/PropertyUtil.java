@@ -3,6 +3,7 @@
  */
 package com.yizhilu.os.ssicore.util;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
@@ -55,7 +56,11 @@ public class PropertyUtil {
     }
 
     public String getProperty(String key) {
-        return resourceBundle.getString(key);
+        try {
+            return new String(resourceBundle.getString(key).getBytes("iso-8859-1"),"utf-8");
+        } catch (UnsupportedEncodingException e) {
+            return resourceBundle.getString(key);
+        }
     }
 
     public Map<String, String> readyConvert() {
