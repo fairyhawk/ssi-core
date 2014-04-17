@@ -22,13 +22,11 @@ import java.util.ResourceBundle;
 public class PropertyUtil {
 
     // 实例map
-    private static Map<String, PropertyUtil> instance = Collections
-            .synchronizedMap(new HashMap<String, PropertyUtil>());
+    private static Map<String, PropertyUtil> instance = Collections.synchronizedMap(new HashMap<String, PropertyUtil>());
 
     protected String sourceUrl;
     protected ResourceBundle resourceBundle;
-    private static Map<String, String> convert = Collections
-            .synchronizedMap(new HashMap<String, String>());
+    private static Map<String, String> convert = Collections.synchronizedMap(new HashMap<String, String>());
 
     protected PropertyUtil(String sourceUrl) {
         this.sourceUrl = sourceUrl;
@@ -57,9 +55,13 @@ public class PropertyUtil {
 
     public String getProperty(String key) {
         try {
-            return new String(resourceBundle.getString(key).getBytes("iso-8859-1"),"utf-8");
-        } catch (UnsupportedEncodingException e) {
-            return resourceBundle.getString(key);
+            return new String(resourceBundle.getString(key).getBytes("iso-8859-1"), "utf-8");
+        } catch (Exception e) {
+            try {
+                return resourceBundle.getString(key);
+            } catch (Exception e2) {
+                return "";
+            }
         }
     }
 

@@ -410,7 +410,7 @@ public class WebUtils {
 
     public static String getAddressByIP(String ip) {
         String js = visitWeb("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=" + ip);
-        JSONObject jo = JSONObject.fromObject(js);
+        JSONObject jo = JSONObject.fromObject(js.substring(21));
         String province = "";
         String city = "";
         try {

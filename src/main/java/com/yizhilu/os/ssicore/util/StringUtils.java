@@ -1752,7 +1752,7 @@ public class StringUtils {
     }
 
     /**
-     * 过滤HTML标签，by zhangjuqiang
+     * 过滤HTML标签
      * 
      * @param args
      */
