@@ -412,7 +412,9 @@ public class WebUtils {
         String res = "未知";
         try {
             String js = visitWeb("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js&ip=" + ip);
-            js = js.trim();
+            if (com.yizhilu.os.ssicore.util.StringUtils.isEmpty(js)) {
+                return res;
+            }
             JSONObject jo = JSONObject.fromObject(js.substring(21, js.length() - 1));
             String province = "";
             String city = "";
