@@ -28,6 +28,7 @@ public class InitListener extends ContextLoaderListener {
             if (state.equals("0")) {
                 System.exit(0);
             } else {
+                servletContextEvent.getServletContext().setAttribute("system.check", "OK");
                 super.contextInitialized(servletContextEvent);
             }
         } catch (Exception e) {

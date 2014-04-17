@@ -3,6 +3,7 @@
 package com.yizhilu.os.ssicore.util.Security;
 
 import java.io.UnsupportedEncodingException;
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -33,9 +34,12 @@ public abstract class ConvertUtils {
         try {
             if (o == null)
                 return -1;
-            else
-                return Integer.parseInt(o.toString());
-        } catch (NumberFormatException e) {
+            else{
+                BigDecimal bigDecimal =new BigDecimal(o.toString());
+                bigDecimal.intValue();
+                return bigDecimal.intValue();
+            }
+        } catch (Exception e) {
             e.printStackTrace();
             return -1;
         }
@@ -47,8 +51,11 @@ public abstract class ConvertUtils {
         try {
             if (o == null)
                 return -1;
-            else
-                return Short.parseShort(o.toString());
+            else{
+                BigDecimal bigDecimal =new BigDecimal(o.toString());
+                bigDecimal.intValue();
+                return bigDecimal.shortValue();
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return -1;
@@ -62,7 +69,11 @@ public abstract class ConvertUtils {
             if (o == null)
                 return -1D;
             else
-                return Double.parseDouble(o.toString());
+            {
+                BigDecimal bigDecimal =new BigDecimal(o.toString());
+                bigDecimal.intValue();
+                return bigDecimal.doubleValue();
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return -1D;
@@ -76,7 +87,11 @@ public abstract class ConvertUtils {
             if (o == null)
                 return -1L;
             else
-                return Long.parseLong(o.toString());
+            {
+                BigDecimal bigDecimal =new BigDecimal(o.toString());
+                bigDecimal.intValue();
+                return bigDecimal.longValue();
+            }
         } catch (NumberFormatException e) {
             e.printStackTrace();
             return -1L;
