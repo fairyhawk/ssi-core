@@ -193,7 +193,6 @@ public class GuidGeneratorServiceImpl extends BaseService implements GuidGenerat
             jvmId = System.getenv().get("JVMID");
             if (jvmId == null || jvmId.trim().length() == 0)
                 jvmId = getNewRandomString(1, "A,B,C,D,E");
-            logger.info("JVM Id:" + jvmId);
             // jvmId+"=============");
             return jvmId;
         }
