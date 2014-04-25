@@ -109,7 +109,42 @@ public class WebUtils {
         }
 
     }
+    /**
+     * 增加或修改cookie Session
+     * 
+     * @param response
+     * @param key
+     * @param value
+     * @param days
+     */
+    public static void setCookieSessionTime(HttpServletResponse response, String key, String value) {
+        setCookieSessionTime(response, key, value, MYDOMAIN);
+    }
 
+    /**
+     * 增加或修改cookie Session
+     * 
+     * @param response
+     * @param key
+     * @param value
+     * @param days
+     */
+    public static void setCookieSessionTime(HttpServletResponse response, String key, String value, String domain) {
+
+        if (key != null && value != null) {
+            Cookie cookie = new Cookie(key, value);
+            // 设置有效日期
+            cookie.setMaxAge(-1);
+            // 设置路径（默认）
+            cookie.setPath("/");
+            if (StringUtils.isNotEmpty(domain)) {// domain != null
+                cookie.setDomain(domain);
+            }
+            // 把cookie放入响应中
+            response.addCookie(cookie);
+        }
+
+    }
     /**
      * 得到指定键的值
      * 
@@ -165,7 +200,7 @@ public class WebUtils {
                         if (StringUtils.isNotEmpty(domain)) {// domain != null
                             ck.setDomain(domain);
                         }
-                        ck.setMaxAge(-1);
+                        ck.setMaxAge(0);
                         response.addCookie(ck);
                         return;
                     }
