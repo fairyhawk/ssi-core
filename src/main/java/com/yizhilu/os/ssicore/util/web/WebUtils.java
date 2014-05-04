@@ -246,7 +246,6 @@ public class WebUtils {
             if (StringUtils.isNotEmpty(domain)) {// domain != null
                 cookie.setDomain(domain);
             }
-            cookie.setSecure(false);
             // 设置有效日期
             cookie.setMaxAge(days * 24 * 60 * 60);
             // 设置路径（默认）
