@@ -100,6 +100,34 @@ public class HttpUtil {
         logger.debug("Post Return:"+result.toString());
         return result.toString();
     }
+    /**
+     * 执行一个HTTP POST请求，返回请求响应的HTML
+     * 
+     * @param url
+     *            请求的URL地址
+     * @param params
+     *            请求的查询参数,可以为null
+     * @return 返回请求响应的HTML
+     */
+    public static void doThreadPost(String url, Map<String, String> params) {
+        HttpUtil httpUtil = new HttpUtil();
+        HttpPostThread httpPostThread = httpUtil.new HttpPostThread(url, params);
+        httpPostThread.start();
+    }
 
+    class HttpPostThread extends Thread {
+        private String url;
+        private Map<String, String> params;
+
+        public HttpPostThread(String url, Map<String, String> params) {
+            this.url = url;
+            this.params = params;
+        }
+
+        @Override
+        public void run() {
+            doPost(url, params);
+        }
+    }
 
 }
