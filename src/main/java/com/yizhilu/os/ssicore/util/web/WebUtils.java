@@ -1,6 +1,7 @@
 package com.yizhilu.os.ssicore.util.web;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -636,7 +637,35 @@ public class WebUtils {
         boolean flag = password.matches(partten) && password.length() >= 6 && password.length() <= 16;
         return flag;
     }
-public static void main(String[] args) {
-    System.out.println(getAddressByIP("111.204.252.208"));
-}
+    public static void main(String[] args) {
+        System.out.println(getAddressByIP("111.204.252.208"));
+    }
+    /**
+     * 是否是ajax请求
+     * @param request
+     * @return
+     */
+    public static boolean isAjaxRequest(HttpServletRequest request){
+        String her=  request.getHeader("x-requested-with");
+        if(StringUtils.isNotEmpty(her)){
+            return true;
+        }
+        return false;
+     }
+    
+    public static boolean isNotAjaxRequest(HttpServletRequest request){
+        return !isAjaxRequest(request);
+        
+     }
+    /**
+     * 获取web项目的路径
+     */
+    public static String getWebRootPath(){
+        String s= System.getProperty("user.dir");
+        if(s.indexOf("classes")>0){
+            s=s.replace("WEB-INF", "").replace("classes", "").replace(File.separator+File.separator, File.separator);
+        }
+        return s;
+    }
+    
 }

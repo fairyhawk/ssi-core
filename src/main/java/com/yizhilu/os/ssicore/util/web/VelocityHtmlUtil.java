@@ -45,6 +45,7 @@ public class VelocityHtmlUtil {
         p.setProperty(Velocity.INPUT_ENCODING, "utf-8");
         p.setProperty(Velocity.OUTPUT_ENCODING, "utf-8");
         VelocityEngine engine = new VelocityEngine();// 引擎初始化
+        engine.setProperty(VelocityEngine.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.NullLogChute");
         engine.init(p);// 装入初始化信息
         template = engine.getTemplate(vmFile);// 把模板读到模板引擎去
         context = new VelocityContext();
